@@ -23,7 +23,6 @@ import frc.robot.Constants.TalonSRXConstants;
 import edu.wpi.first.wpilibj.MotorSafety;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
-import frc.robot.Constants;
 import frc.robot.Constants.OperatorConstants;
 
 
