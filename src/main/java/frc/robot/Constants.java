@@ -24,6 +24,9 @@ public final class Constants {
     public static final int kRightMotorTop = 5;
     //Left side top
     public static final int kLeftMotorTop = 6; 
+    
+    public static final int kFreeSpinCurrentLimit = 25 ; //Must Tune
+    public static final int kPushingCurrentLimit = 30; //Must Tune
 
   }
 
@@ -34,6 +37,10 @@ public final class Constants {
     //Left side
     public static final int kLeftMotorFront = 3;
     public static final int kLeftMotorBack = 4;
+    //Current Limits
+    public static final int kCurrentLimit = 25; //Must Tune
+    public static final int kCurrentLimitTimeout = 100; //Must Tune (ms)
+
   }
 
 }

@@ -18,6 +18,7 @@ public class DriveArcadeJoystick extends CommandBase {
   @Override
   public void initialize() {
     System.out.println("Joystick Controller Active!");
+    RobotContainer.m_driveSubsystem.setJoystickDrive();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -38,7 +39,6 @@ public class DriveArcadeJoystick extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     RobotContainer.m_driveSubsystem.stopDrive();
-
   }
 
   // Returns true when the command should end.

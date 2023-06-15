@@ -18,6 +18,7 @@ public class DriveArcade extends CommandBase {
   @Override
   public void initialize() {
     System.out.println("XBOX Controller Active!");
+    RobotContainer.m_driveSubsystem.setXboxDrive();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -25,7 +26,7 @@ public class DriveArcade extends CommandBase {
   public void execute() {
     double rTrigger = RobotContainer.m_xboxDriverController.getRightTriggerAxis();
     double lTrigger = RobotContainer.m_xboxDriverController.getLeftTriggerAxis();
-    
+
     if ( rTrigger > 0.2) {
       RobotContainer.m_driveSubsystem.PushDrive(rTrigger);
     }
@@ -33,9 +34,9 @@ public class DriveArcade extends CommandBase {
       RobotContainer.m_driveSubsystem.PushDrive(lTrigger*-1);
     }
     else { 
-      double rotateSpeed = RobotContainer.m_xboxDriverController.getLeftY();
-      double moveSpeed = RobotContainer.m_xboxDriverController.getRightX();
-      RobotContainer.m_driveSubsystem.DriveArcade(rotateSpeed, moveSpeed);
+      double moveSpeed = RobotContainer.m_xboxDriverController.getLeftY();
+      double rotateSpeed = RobotContainer.m_xboxDriverController.getRightX();
+      RobotContainer.m_driveSubsystem.DriveArcade(moveSpeed, rotateSpeed);
     }
   }
 
@@ -43,12 +44,11 @@ public class DriveArcade extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     RobotContainer.m_driveSubsystem.stopDrive();
-
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return false;  
   }
 }
