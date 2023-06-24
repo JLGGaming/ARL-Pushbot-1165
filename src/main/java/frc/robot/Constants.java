@@ -3,6 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
+import java.util.ArrayList;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -15,7 +16,7 @@ package frc.robot;
 public final class Constants {
   public static class OperatorConstants {
     public static final int kXboxControllerPort = 0;
-    public static final int kJoytickControllerPort = 1;
+    public static final int kJoystickControllerPort = 1;
 
   }
 
@@ -39,7 +40,17 @@ public final class Constants {
     public static final int kLeftMotorBack = 4;
     //Current Limits
     public static final int kCurrentLimit = 25; //Must Tune
-    public static final int kCurrentLimitTimeout = 100; //Must Tune (ms)
+    public static final int kCurrentLimitTimeout = 20; //Must Tune (ms)
+
+  } 
+
+
+  public static class AutoConstants {
+    public static final double kDriveBackShort = 2;
+    public static final double kDriveBackLong = 4;
+
+    public static final double kDriveForwardShort = 2;
+    public static final double kDriveForwardLong = 4;
 
   }
 

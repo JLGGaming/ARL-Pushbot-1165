@@ -13,6 +13,7 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import frc.robot.Constants.SparkMaxConstants;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import frc.robot.Constants.TalonSRXConstants;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -51,17 +52,28 @@ public class DriveSubsystem extends SubsystemBase {
     topLeft.setIdleMode(IdleMode.kCoast);
     topRight.setIdleMode(IdleMode.kCoast);
     topRight.setInverted(true); //Will be tested 6/16/2023
+    topLeft.setInverted(true); //Will be tested 6/16/2023
+
+    frontLeft.setInverted(true);
+    backLeft.setInverted(true);
 
     frontLeft.setNeutralMode(NeutralMode.Coast);
-    frontLeft.setNeutralMode(NeutralMode.Coast);
-    frontLeft.setNeutralMode(NeutralMode.Coast);
+    frontRight.setNeutralMode(NeutralMode.Coast);
+    backLeft.setNeutralMode(NeutralMode.Coast);
     backRight.setNeutralMode(NeutralMode.Coast);
 
-    frontLeft.setSafetyEnabled(false);
-    frontRight.setSafetyEnabled(false);
-    backLeft.setSafetyEnabled(false);
-    backRight.setSafetyEnabled(false);
-    
+    frontLeft.setSafetyEnabled(true);
+    frontRight.setSafetyEnabled(true);
+    backLeft.setSafetyEnabled(true);
+    backRight.setSafetyEnabled(true);
+     
+    topLeft.setOpenLoopRampRate(0.1);
+    topRight.setClosedLoopRampRate(0.1);
+    frontLeft.configOpenloopRamp(0.1);
+    frontRight.configOpenloopRamp(0.1);
+    backLeft.configOpenloopRamp(0.1);
+    backRight.configOpenloopRamp(0.1);
+
     //Must Tune!
     topLeft.setSmartCurrentLimit(SparkMaxConstants.kPushingCurrentLimit, SparkMaxConstants.kFreeSpinCurrentLimit);
     topRight.setSmartCurrentLimit(SparkMaxConstants.kPushingCurrentLimit, SparkMaxConstants.kFreeSpinCurrentLimit);
@@ -74,21 +86,10 @@ public class DriveSubsystem extends SubsystemBase {
     System.out.println("Motors Configured!"); 
   }
 
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-    updateSmartDashboard(false);
-  }
-
-  public void setXboxDrive(){
-    activeController = "Xbox"; 
-    updateSmartDashboard(true);
-  }
-
-  public void setJoystickDrive(){
-    activeController = "Joystick";
-    updateSmartDashboard(true);
-  }
+  // public void setJoystickDrive(){
+  //   activeController = "Joystick";
+  //   updateSmartDashboard(true);
+  // }
 
   public void DriveArcade(double xSpeed, double ySpeed) {
     drive.arcadeDrive(xSpeed, ySpeed);
@@ -99,9 +100,19 @@ public class DriveSubsystem extends SubsystemBase {
   public void PushDrive (double speed) {
     leftDriveMotors.set(speed);
     rightDriveMotors.set(speed);
-    pushMotors.set(speed);
+    topLeft.set(-speed);
+    topRight.set(speed);
+
+
     SmartDashboard.putNumber("pSpeed" , speed);
   }
+
+
+  public void DriveTank(double left, double right) {
+    drive.tankDrive(left, right);
+    SmartDashboard.putNumber("xSpeed" , left); 
+  }
+
 
   public void toggleBrakeMode() { //Unused ATM
     frontLeft.setNeutralMode(NeutralMode.Brake);
@@ -115,6 +126,16 @@ public class DriveSubsystem extends SubsystemBase {
     rightMotors.set(0);
   }
 
+  public void stopPushMotors() {
+    pushMotors.set(0);
+  }
+
+  @Override
+  public void periodic() {
+    // This method will be called once per scheduler run
+    updateSmartDashboard(false);
+  }
+
   public void updateSmartDashboard(boolean firstRun) {
     if (firstRun) {
       SmartDashboard.putString("TalonSRX Current Limit", TalonSRXConstants.kCurrentLimit + " Amps");
@@ -123,7 +144,7 @@ public class DriveSubsystem extends SubsystemBase {
       SmartDashboard.putString("SparkMAX Freespin Current Limit", SparkMaxConstants.kFreeSpinCurrentLimit+ " Amps");
       SmartDashboard.putString("SparkMAX Pushing Current Limit", SparkMaxConstants.kPushingCurrentLimit+ " Amps");
 
-      SmartDashboard.putString("Active Controller", activeController);
+      SmartDashboard.putString("Active Robot", "Pushy Bot | KAREN");
     }
 
     SmartDashboard.putNumber("FL %", frontLeft.getMotorOutputPercent());
@@ -142,13 +163,13 @@ public class DriveSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("BR Volts", backRight.getMotorOutputVoltage());
     SmartDashboard.putNumber("BR Amps", backRight.getStatorCurrent());
 
-    SmartDashboard.putNumber("TL %", topLeft.getAppliedOutput());
-    SmartDashboard.putNumber("TL Amps" , topLeft.getOutputCurrent());
-    SmartDashboard.putString("TL IdleMode" , "" + topLeft.getIdleMode());
+    SmartDashboard.putNumber("TL/FLYL %", topLeft.getAppliedOutput());
+    SmartDashboard.putNumber("TL/FLYL Amps" , topLeft.getOutputCurrent());
+    SmartDashboard.putString("FLYL Volts/TL IdleMode" , "" + topLeft.getIdleMode());
 
-    SmartDashboard.putNumber("TR %", topRight.getAppliedOutput());
-    SmartDashboard.putNumber("TR Amps" , topRight.getOutputCurrent());
-    SmartDashboard.putString("TR IdleMode" , "" + topRight.getIdleMode());
+    SmartDashboard.putNumber("TR/FLYR %", topRight.getAppliedOutput());
+    SmartDashboard.putNumber("TR/FLYR Amps" , topRight.getOutputCurrent());
+    SmartDashboard.putString("FLYR Volts/TL IdleMode" , "" + topRight.getIdleMode());
 
     SmartDashboard.updateValues(); 
   }

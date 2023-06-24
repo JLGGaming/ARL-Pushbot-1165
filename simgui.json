@@ -6,14 +6,28 @@
           "open": true
         }
       },
-      "window": {
-        "visible": false
+      "Talon SRX[3]": {
+        "header": {
+          "open": true
+        }
+      },
+      "Talon SRX[3]/Analog In": {
+        "header": {
+          "open": true
+        }
+      },
+      "Talon SRX[4]": {
+        "header": {
+          "open": true
+        }
       }
     }
   },
   "NTProvider": {
     "types": {
-      "/FMSInfo": "FMSInfo"
+      "/FMSInfo": "FMSInfo",
+      "/SmartDashboard/Autonomous Choice": "String Chooser",
+      "/SmartDashboard/Autonomous Program": "String Chooser"
     }
   },
   "NetworkTables": {

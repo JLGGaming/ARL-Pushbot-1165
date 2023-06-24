@@ -11,7 +11,11 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 import frc.robot.commands.DriveArcade;
-import frc.robot.commands.DriveArcadeJoystick;
+import frc.robot.commands.DrivePush;
+import frc.robot.commands.AutoCommands.DriveBack;
+import frc.robot.commands.AutoCommands.DriveBackForward;
+import frc.robot.commands.AutoCommands.DriveForward;
+import frc.robot.commands.AutoCommands.DriveForwardBack;
 import frc.robot.Constants.OperatorConstants;
 
 import frc.robot.subsystems.DriveSubsystem;
@@ -32,14 +36,14 @@ public class RobotContainer {
       new CommandXboxController(OperatorConstants.kXboxControllerPort);
 
   public static final CommandJoystick m_joystickDriverController =
-      new CommandJoystick(OperatorConstants.kJoytickControllerPort);
+      new CommandJoystick(OperatorConstants.kJoystickControllerPort);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
     m_driveSubsystem.setDefaultCommand(new DriveArcade());
-    m_driveSubsystem.setDefaultCommand(new DriveArcadeJoystick());
+    // m_driveSubsystem.setDefaultCommand(new DriveArcadeJoystick());
   }
 
   /**
@@ -62,17 +66,33 @@ public class RobotContainer {
 
     // new JoystickButton(coDriverController, 1).onTrue(m_Drivetrain.halfSpeed());
     
-
-  }
+    new Trigger(m_xboxDriverController.rightTrigger(0.2)).onTrue(new DrivePush());
+  } 
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {
+  public Command getAutonomousCommand(String auto) {
     // An example command will be run in autonomous
+    if (auto.equals("DriveBack")){
+      return new DriveBack();
+    }
+    else if (auto.equals("DriveForward")){
+      return new DriveForward();
+    }
+    else if (auto.equals("DriveForwardBack")){
+      return new DriveForwardBack();
+    }
+    else if (auto.equals("DriveBackForward")){
+      return new DriveBackForward();
+    }
+    else if (auto.equals("None")) {
+      System.out.println("No Auto Running");
+      return null;
+    }
+    System.out.println("Failed to select auto!");
     return null;
-    // return Autos.exampleAuto(m_exampleSubsystem);
   }
 }
