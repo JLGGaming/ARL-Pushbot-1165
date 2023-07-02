@@ -17,7 +17,7 @@ public class DriveForward extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new DriveTank(0.2, 0.2, Constants.AutoConstants.kDriveForwardLong)
+      new DriveTank(0.2, 0.2).withTimeout(2)
     );
   }
 }

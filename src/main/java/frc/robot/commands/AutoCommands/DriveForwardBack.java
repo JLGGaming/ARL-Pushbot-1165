@@ -5,8 +5,10 @@
 package frc.robot.commands.AutoCommands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import frc.robot.commands.DriveTank;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -17,8 +19,8 @@ public class DriveForwardBack extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new DriveTank(0.8, 0.8, Constants.AutoConstants.kDriveForwardShort),
-      new DriveTank(-0.2, -0.2, Constants.AutoConstants.kDriveBackLong)
+      new DriveTank(0.8, 0.8).withTimeout(2),
+      new DriveTank(-0.2, -0.2).withTimeout(4)
     );
   }
 }

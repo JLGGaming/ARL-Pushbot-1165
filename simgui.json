@@ -28,6 +28,13 @@
       "/FMSInfo": "FMSInfo",
       "/SmartDashboard/Autonomous Choice": "String Chooser",
       "/SmartDashboard/Autonomous Program": "String Chooser"
+    },
+    "windows": {
+      "/SmartDashboard/Autonomous Program": {
+        "window": {
+          "visible": true
+        }
+      }
     }
   },
   "NetworkTables": {

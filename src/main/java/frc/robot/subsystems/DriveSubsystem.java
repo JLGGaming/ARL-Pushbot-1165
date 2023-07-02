@@ -34,8 +34,8 @@ public class DriveSubsystem extends SubsystemBase {
   MotorControllerGroup leftMotors = new MotorControllerGroup(frontLeft, backLeft, topLeft);
   MotorControllerGroup rightMotors = new MotorControllerGroup(frontRight, backRight, topRight);
 
-  MotorControllerGroup leftDriveMotors = new MotorControllerGroup(frontLeft, backLeft);
-  MotorControllerGroup rightDriveMotors = new MotorControllerGroup(frontRight, backRight);
+  MotorControllerGroup leftDriveMotors = new MotorControllerGroup(frontLeft, backLeft, topLeft);
+  MotorControllerGroup rightDriveMotors = new MotorControllerGroup(frontRight, backRight, topRight);
   
   MotorControllerGroup pushMotors = new MotorControllerGroup(topLeft, topRight);
 
@@ -69,10 +69,10 @@ public class DriveSubsystem extends SubsystemBase {
      
     topLeft.setOpenLoopRampRate(0.1);
     topRight.setClosedLoopRampRate(0.1);
-    frontLeft.configOpenloopRamp(0.1);
-    frontRight.configOpenloopRamp(0.1);
-    backLeft.configOpenloopRamp(0.1);
-    backRight.configOpenloopRamp(0.1);
+    frontLeft.configOpenloopRamp(0.5);
+    frontRight.configOpenloopRamp(0.5);
+    backLeft.configOpenloopRamp(0.5);
+    backRight.configOpenloopRamp(0.5);
 
     //Must Tune!
     topLeft.setSmartCurrentLimit(SparkMaxConstants.kPushingCurrentLimit, SparkMaxConstants.kFreeSpinCurrentLimit);
